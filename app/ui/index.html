@@ -15,27 +15,33 @@
         <p class="sub-text">↓サイトURLを入れて、プレビューボタンをおして作成↓</p>
         <form class="form" name="myform">
             <input class="url-form" name="mytext" type="text" id="url" placeholder="URL" />
+            <!-- Enterキーによる誤送信防止 -->
+            <input type="text" name="dummy" style="display:none;">
             <!-- onclick属性を付与してcheckText関数を実行する -->
             <input class="btn" type="button" value="プレビュー" onclick="checkText()" />
         </form>
+        <article id="content_area">
+            <img src="../api/favicon_qrcode.png">
+        </article>
     </div>
 
     <div class="text-center mt-16">
-        <div ><a data-v-d960f4fe="" class="inline-flex items-center justify-center cursor-pointer w-1/2 bg-red-400 hover:bg-red-300 text-white font-semibold py-2 px-4 border rounded">
-            <i data-v-d960f4fe="" class="c-icon__download inline-block"></i>
-            <span data-v-d960f4fe="" class="pl-1">ダウンロード</span>
-        </a>
-    </div>
-    <div class="flex space-x-3 justify-center mt-20">
-        <a  href="https://twitter.com/intent/tweet?text=QRコードぜひ読み取ってみてね！！&amp;hashtags=QRコード,QR&amp;url=https://profill-app.net/"
-        target="_blank" rel="noreferrer" class="btn-SNS c-button__twitter">
-        ツイート
-        </a>
-        <a  href="http://www.facebook.com/share.php?u=https://profill-app.net/" target="_blank" rel="noreferrer"
-        class="btn-SNS c-button__facebook">
-        Facebook
-        </a>
-    </div>
+        <div><a data-v-d960f4fe=""
+                class="inline-flex items-center justify-center cursor-pointer w-1/2 bg-red-400 hover:bg-red-300 text-white font-semibold py-2 px-4 border rounded">
+                <i data-v-d960f4fe="" class="c-icon__download inline-block"></i>
+                <span data-v-d960f4fe="" class="pl-1">ダウンロード</span>
+            </a>
+        </div>
+        <div class="flex space-x-3 justify-center mt-20">
+            <a href="https://twitter.com/intent/tweet?text=QRコードぜひ読み取ってみてね！！&amp;hashtags=QRコード,QR&amp;url=https://profill-app.net/"
+                target="_blank" rel="noreferrer" class="btn-SNS c-button__twitter">
+                ツイート
+            </a>
+            <a href="http://www.facebook.com/share.php?u=https://profill-app.net/" target="_blank" rel="noreferrer"
+                class="btn-SNS c-button__facebook">
+                Facebook
+            </a>
+        </div>
 </body>
 
 
@@ -45,7 +51,20 @@
         await axios.post('http://localhost:8000/generate/', { url: urlText.value })
             .then(res => console.log(res.data))
         console.log(urlText.value)
+        window.location.reload();
+        // img要素を作成
+        var img_element = document.createElement('img');
+        img_element.src = '../api/favicon_qrcode.png'; // 画像パス
+        //img_element.alt = 'さいくん'; // 代替テキスト
+        //img_element.width = 200; // 横サイズ（px）
+        //img_element.height = 200; // 縦サイズ（px）
+
+        // 指定した要素にimg要素を挿入
+        var content_area = document.getElementById("content_area");
+        content_area.appendChild(img_element);
     }
+
+
 </script>
 
 </html>
